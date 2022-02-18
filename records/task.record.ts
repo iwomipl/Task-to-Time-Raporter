@@ -4,7 +4,7 @@ import { pool } from "../utils/db";
 import {FieldPacket} from "mysql2";
 import * as TimeFormat from 'hh-mm-ss';
 
-type TaskTimeRecordResults = [TaskTimeRecord[], FieldPacket[]];
+export type TaskTimeRecordResults = [TaskTimeRecord[], FieldPacket[]];
 
 export class TaskTimeRecord {
     public readonly id?: string;
@@ -102,8 +102,8 @@ export class TaskTimeRecord {
 
 
         if (sumOfTimesMiliseconds !== null || Number.isNaN(sumOfTimesMiliseconds)) {
-            const sumOfTimes = TimeFormat.fromS(sumOfTimesMiliseconds);
-            return sumOfTimes;
+
+            return TimeFormat.fromS(sumOfTimesMiliseconds);
         }
         return null;
     }

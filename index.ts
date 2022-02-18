@@ -1,6 +1,6 @@
-import * as express from 'express';
+import express from 'express';
 import 'express-async-errors';
-import * as methodOverride from 'method-override';
+import methodOverride from 'method-override';
 import {static as eStatic, urlencoded} from "express";
 import {engine} from "express-handlebars";
 import { homeRouter } from './routers/home';
@@ -8,6 +8,7 @@ import {handleError, handleFourOhFourError} from './utils/errors';
 import {handlebarsHelpers} from "./utils/handlebars-helpers";
 import { docsRouter } from './routers/docs';
 import { jsonRouter } from './routers/json';
+
 
 const app = express();
 

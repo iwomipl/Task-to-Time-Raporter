@@ -1,14 +1,10 @@
 import { Router } from "express";
 import {TaskTimeRecord} from "../records/task.record";
 import { ValidationError } from "../utils/errors";
-import * as TimeFormat from 'hh-mm-ss';
 
 export const homeRouter = Router();
 
 homeRouter
-    .get('/config', async (req, res)=>{
-        res.json({"dupa": "pawiana"})
-    })
     .get('/', async (req, res)=>{
         const fullList = await TaskTimeRecord.listAll();
         const sumOfTimes = await TaskTimeRecord.calculateCumulatedTime();
@@ -37,7 +33,7 @@ homeRouter
             status: 1,
         });
 
-        const id = await newTask.insert();
+        await newTask.insert();
         const message = 'Zadanie zostało dodane, a pomiar czasu uruchomiony.';
         const fullList = await TaskTimeRecord.listAll();
 
