@@ -1,0 +1,44 @@
+<h1>Endpointy dla tej aplikacji</h1>
+
+<table>
+    <tr>
+        <th>Metoda</th>
+        <th>Link</th>
+        <th>Opis</th>
+    </tr>
+    <tr>
+        <td class="get">GET</td>
+        <td class="link">/</td>
+        <td>Główna ścieżka do strony pobiera i renderuje listę wszystkich zadań</td>
+    </tr>
+    <tr>
+        <td class="get">GET</td>
+        <td class="link">/get-data/<span class="orange">{task-id}</span></td>
+        <td>Ścieżka pobiera id aktywnego zadania i aktualizuje czas od jego rozpoczęcia i wysyła JSON-en na frontend.</td>
+    </tr>
+    <tr>
+        <td class="get">GET</td>
+        <td class="link">/docs</td>
+        <td>Ścieżka renderuje niniejszą dokumentację.</td>
+    </tr>
+    <tr>
+        <td class="get">GET</td>
+        <td class="link">/get-time</td>
+        <td>Ścieżka pobiera z bazy danych sumę czasów z podziałem na dni przesyła ja w formacie json.</td>
+    </tr>
+    <tr>
+        <td class="post">POST</td>
+        <td class="link">/</td>
+        <td>Ścieżka pobiera title, nadaje id, sprawdza, czy są otwarte inne zadania i renderuje stronę z dodanym zadaniem.</td>
+    </tr>
+    <tr>
+        <td class="patch">PATCH</td>
+        <td class="link">/<span class="orange">{task-id}</span></td>
+        <td>Ścieżka pobiera id zakmniętego zadania, aktualizuje je w bazie danych i renderuje zaktualizowaną listę.</td>
+    </tr>
+    <tr>
+        <td class="delete">DELETE</td>
+        <td class="link">/</td>
+        <td>Ścieżka pobiera id usuwanego zadania, usuwa je z bazy danychi renderuje zaktualizowaną listę.</td>
+    </tr>
+</table>

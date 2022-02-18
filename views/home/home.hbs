@@ -1,0 +1,41 @@
+{{#if (isMessage message)}}<h3>{{message}}</h3>{{/if}}
+<h1>Twoje zadania:</h1>
+<div class="wrapper">
+    <div class="grid-container">
+        {{#each fullList}}
+            {{#if (isOpen this.status)}}
+            <div class="divs open" name="{{this.id}}">
+            {{else}}
+            <div class="divs" name="{{this.id}}">
+            {{/if}}
+            <div class="p-in-div"><p><strong>{{this.title}}</strong></p></div><div class="right-span"><p>{{#if (isClosed this.status)}} Czas zadania - <strong>{{this.timeOfTask}}</strong>
+        {{else}} Czas zadania - <strong id="fetcher"></strong>
+            <script>
+                (async ()=> {
+                    const fetcher = async ()=>{
+                        const timer = document.querySelector('#fetcher');
+                        const time = await fetch(`/get-data/{{this.id}}`);
+                        const postJSON = await time.json();
+                        timer.innerHTML = postJSON;
+                    };
+                    await fetcher();
+
+                    await setInterval(async ()=> {
+                        await fetcher();
+                    },1000);
+                })();
+            </script>
+        {{/if}}</p></div>
+                {{#if (isOpen this.status)}}
+                <form method="POST" action="/{{this.id}}?_method=PATCH" >
+                    <button type="submit" name="close" value="{{this.id}}">Zamknij</button>
+                </form>
+                {{/if}}
+                <form method="POST" action="/{{this.id}}?_method=DELETE" >
+                    <button type="submit" name="deleteOpened" value="{{this.id}}">Usuń</button>
+                </form></div>
+        {{/each}}
+    </div>
+</div>
+</div>
+
