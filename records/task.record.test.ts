@@ -1,17 +1,18 @@
 import {TaskTimeRecord} from "./task.record";
+import * as TimeFormat from "hh-mm-ss";
 
 let idToTest:string;
 const title = 'newTitle';
 const status = 1;
 
 test('test getOneFunction good', async ()=>{
-    const getOne = await JSON.stringify(await TaskTimeRecord.getOne('154c7ff8-91f4-4f86-b5ec-9d4ea3968283'))
+    const getOne = JSON.stringify(await TaskTimeRecord.getOne('154c7ff8-91f4-4f86-b5ec-9d4ea3968283'))
     const myOne = "{\"id\":\"154c7ff8-91f4-4f86-b5ec-9d4ea3968283\",\"title\":\"kolejny raz\",\"startTime\":\"2022-02-18T08:16:08.000Z\",\"endTime\":\"2022-02-18T08:16:08.000Z\",\"status\":0,\"timeOfTask\":\"00:14:48\"}";
     expect(getOne).toBe(myOne);
 });
 
 test('test getOneFunction bad', async ()=>{
-    const getOne = await JSON.stringify(await TaskTimeRecord.getOne('154c7ff8-91f4-4f86-b5ec-9d4ea3968283a'));
+    const getOne = JSON.stringify(await TaskTimeRecord.getOne('154c7ff8-91f4-4f86-b5ec-9d4ea3968283a'));
     expect(getOne).toBe("null");
 });
 
@@ -33,7 +34,7 @@ test('test finishTask', async()=>{
     const nextResult = new TaskTimeRecord(await TaskTimeRecord.getOne(`${idToTest}`));
     expect(message).toBe('Zadanie zostało zamknięte.');
     expect(nextResult.status).toBe(0);
-    expect(nextResult.timeOfTask).toBe('00:00:00');
+    expect(TimeFormat.toS(nextResult.timeOfTask) < 20);
 });
 
 test('test delete', async()=>{
@@ -65,12 +66,11 @@ test('test listAll', async()=>{
     expect(nextTasks[0].endTime).toBe(null);
     expect(nextTasks[0].timeOfTask).toBe(null);
 
-    const filteredTasks = nextTasks.filter((nextTask, index) =>{
+    const [filteredTasks]: TaskTimeRecord[] = nextTasks.filter((nextTask, index) =>{
         return nextTasks[index].id !== (Boolean(tasks[index-1]) ? tasks[index-1].id : false);
     });
-    const result = new TaskTimeRecord(await TaskTimeRecord.getOne(`${filteredTasks[0].id}`));
-    await result.delete();
-    const getOne = await JSON.stringify(await TaskTimeRecord.getOne(`${filteredTasks[0].id}`));
+    await filteredTasks.delete();
+    const getOne = JSON.stringify(await TaskTimeRecord.getOne(`${idToTest}`));
     expect(getOne).toBe("null");
 });
 

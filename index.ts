@@ -10,7 +10,7 @@ import { docsRouter } from './routers/docs';
 import { jsonRouter } from './routers/json';
 
 
-const app = express();
+export const app = express();
 
 app.use(methodOverride('_method'));
 app.use(urlencoded({

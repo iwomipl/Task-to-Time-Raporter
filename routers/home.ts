@@ -29,7 +29,7 @@ homeRouter
 
         const title: string = req.body.title;
         const newTask = new TaskTimeRecord({
-            title: title,
+            title,
             status: 1,
         });
 
@@ -65,5 +65,4 @@ homeRouter
             fullList,
             message,
         });
-        return;
     })
